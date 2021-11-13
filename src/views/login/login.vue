@@ -32,13 +32,13 @@ export default {
                 this.$axios.post('login',this.$data.formData)
                 .then(res => {
                     let data = res.data.data;//登录后用户基本信息
-                    let status = res.data.meta;//登录状态，是否登录成功
+                    let meta = res.data.meta;//登录状态，是否登录成功
                     
                         // 判断是否登陆成功
-                    if(status.status === 200){//判断状态码是否为200
+                    if(meta.status === 200){//判断状态码是否为200
                         this.$message({
                             showClose: true,
-                            message: status.msg,
+                            message: meta.msg,
                             type: 'success'
                         });
                         this.$router.replace({name:'home'});//登陆成功跳转至home页面
@@ -47,7 +47,7 @@ export default {
                         // 状态码不为200时，提示错误
                         this.$message({
                             showClose: true,
-                            message: status.msg,
+                            message: meta.msg,
                             type: 'error'
                         });
                         this.formData.password = '';
