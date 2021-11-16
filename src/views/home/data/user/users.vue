@@ -1,11 +1,7 @@
 <template>
     <el-card class="user-card">
         <!-- 面包屑 -->
-        <el-breadcrumb class="users-breadcrumb" separator="/">
-            <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item>用户管理</el-breadcrumb-item>
-            <el-breadcrumb-item>用户列表</el-breadcrumb-item>
-        </el-breadcrumb>
+        <MyBread first="用户管理" second="用户列表"></MyBread>
 
         <!-- 搜索栏 -->
         <el-input class="users-input" placeholder="请输入内容" v-model="usersInput">
@@ -161,7 +157,9 @@
 </template>
 
 <script>
+import MyBread from '@/components/crumbs/myBread.vue'
 export default {
+    components:{MyBread},
     data() {
         return {
         // 搜索栏数据
@@ -178,7 +176,6 @@ export default {
                 // id:用户id
                 // role_name:角色名称
             ],
-
 
         // 分页数据
             // 当前页码
@@ -258,12 +255,16 @@ export default {
                         message: meta.msg,
                         type: 'success'
                     });
+                    // 刷新界面
+                    this.getUserList(false);
                 }else{
                     this.$message({
                         showClose: true,
                         message: meta.msg,
                         type: 'error'
                     });
+                    // 刷新界面
+                    this.getUserList(false);
                 }
             })
             .catch(err => {
@@ -373,7 +374,6 @@ export default {
             this.$data.assignRolesDialog = true;
         },
 
-
     // 分页事件
         // 页码改变时触发
         handleCurrentChange(val){
@@ -394,10 +394,6 @@ export default {
     // 其他事件
         // 获取所有用户列表(bool代表是否提示列表更新成功)
         getUserList(bool){
-            //获取token值
-            const token = localStorage.getItem('token');
-            //设置请求头
-            this.$axios.defaults.headers.common['Authorization'] = token;
             //发送请求
             this.$axios.get('users',{
                 params:{
@@ -568,9 +564,6 @@ export default {
 <style scoped>
     .user-card {
         height: 100%;
-    }
-    .users-breadcrumb {
-        margin-bottom: 20px;
     }
     .users-input {
         width: 30%;
