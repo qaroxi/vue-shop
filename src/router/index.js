@@ -5,6 +5,13 @@ import Home from '../views/home/home.vue'
 import Users from '../views/home/data/user/users.vue'
 import Rights from '../views/home/data/power/rights.vue'
 import Roles from '../views/home/data/power/roles.vue'
+import Goods from '../views/home/data/goods/goodsList.vue'
+import Params from '../views/home/data/goods/parameter.vue'
+import Categories from '../views/home/data/goods/classification.vue'
+import GoodsAdd from '../views/home/data/goods/goodsAdd.vue'
+
+// 引入element ui 的消息提示
+import { Message } from 'element-ui';
 
 Vue.use(VueRouter)
 
@@ -40,7 +47,35 @@ const routes = [
         name:'roles',
         path:'roles',
         component:Roles,
-      }
+      },
+
+      // 商品管理--商品列表
+      {
+        name:'goods',
+        path:'goods',
+        component:Goods,
+      },
+
+      // 商品管理--分类参数
+      {
+        name:'params',
+        path:'params',
+        component:Params,
+      },
+
+      // 商品管理--商品分类
+      {
+        name:'categories',
+        path:'categories',
+        component:Categories,
+      },
+
+      // 商品管理--添加商品
+      {
+        name:'goodsAdd',
+        path:'addgoods',
+        component:GoodsAdd,
+      },
 
     ],
   },
@@ -49,5 +84,27 @@ const routes = [
 const router = new VueRouter({
   routes
 })
+
+// 路由前置守卫
+router.beforeEach((to, from, next) => {
+  // 判断用户是否登录，否则进行登录
+  if(to.path != '/login'){
+    let token = localStorage.getItem('token');
+      if(!token){
+        // 提示未登录
+        Message({
+          message: '未登录，请先登录！',
+          type: 'warning'
+        });
+        // 跳转至登录界面
+        router.replace({name:'login'});
+        return;
+      }
+    next();
+  }else{
+    next();
+  }
+})
+
 
 export default router

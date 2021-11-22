@@ -5,7 +5,7 @@
             <el-row class="header_row">
                 <el-col class="header_row_col" :span="3"><img src="../../assets/img/log.jpg" alt="图片加载中..."></el-col>
                 <el-col class="header_row_col" :span="18"><h2>电商后台管理系统</h2></el-col>
-                <el-col class="header_row_col" :span="3"><a @click.prevent="loginOut" href="#">退出</a></el-col>
+                <el-col class="header_row_col" :span="3"><a @click.prevent="loginOut()" href="#">退出</a></el-col>
             </el-row>
         </el-header>
 
@@ -126,13 +126,6 @@ export default {
         return {
             // 动态菜单栏数据
             menus:[]
-        }
-    },
-    beforeCreate(){
-        // 判断本地存储是否有token，没有则跳转至登录界面
-        let token = localStorage.getItem('token');
-        if(!token){
-            this.$router.replace({name:'login'});
         }
     },
     created(){

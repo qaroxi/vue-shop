@@ -41,8 +41,8 @@ export default {
                             message: meta.msg,
                             type: 'success'
                         });
-                        this.$router.replace({name:'home'});//登陆成功跳转至home页面
                         localStorage.setItem('token',data.token);//将token保存至本地存储
+                        this.$router.replace({name:'home'});//登陆成功跳转至home页面
                     }else{
                         // 状态码不为200时，提示错误
                         this.$message({
