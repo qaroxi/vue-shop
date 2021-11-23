@@ -9,6 +9,8 @@ import Goods from '../views/home/data/goods/goodsList.vue'
 import Params from '../views/home/data/goods/parameter.vue'
 import Categories from '../views/home/data/goods/classification.vue'
 import GoodsAdd from '../views/home/data/goods/goodsAdd.vue'
+import Orders from '../views/home/data/order/orders.vue'
+import Reports from '../views/home/data/report/reports.vue'
 
 // 引入element ui 的消息提示
 import { Message } from 'element-ui';
@@ -75,6 +77,20 @@ const routes = [
         name:'goodsAdd',
         path:'addgoods',
         component:GoodsAdd,
+      },
+
+      // 订单管理--订单列表
+      {
+        name:'orders',
+        path:'orders',
+        component:Orders,
+      },
+
+      // 数据统计--数据报表
+      {
+        name:'reports',
+        path:'reports',
+        component:Reports,
       },
 
     ],
